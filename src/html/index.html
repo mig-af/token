@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Token - Exclusive Presale</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.2.0/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3modal@1.9.12/dist/index.min.js"></script>
+
+    <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
+    <script src="https://unpkg.com/web3modal@latest/dist/index.js"></script>
+    <script src="https://unpkg.com/@walletconnect/sign-client@2.10.0/dist/index.umd.js"></script>
+
+
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #0a0a0a;
+            color: #e2e8f0;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .token-card {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border: 1px solid #334155;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .roadmap-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 35px;
+            top: 40px;
+            height: calc(100% - 40px);
+            width: 2px;
+            background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+        }
+        
+        .glow {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+        
+        .glow:hover {
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.8);
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #1e40af, #3b82f6);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <button id="siu">SIUUUUUUUUUUUUUUUU</button>
+    <header class="py-6 px-4 sm:px-6 lg:px-8 border-b border-gray-800">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                    <i class="fas fa-coins text-white"></i>
+                </div>
+                <span class="text-2xl font-bold">Nexus<span class="gradient-text">Token</span></span>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="hover:text-blue-400 transition">About</a>
+                <a href="#tokenomics" class="hover:text-blue-400 transition">Tokenomics</a>
+                <a href="#roadmap" class="hover:text-blue-400 transition">Roadmap</a>
+                <a href="#team" class="hover:text-blue-400 transition">Team</a>
+            </div>
+            
+            <button id="connect-wallet" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-2 px-6 rounded-full transition duration-300 glow">
+                Connect Wallet
+            </button>
+            
+            <button class="md:hidden text-xl" id="mobile-menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900 mt-4 py-4 px-4 rounded-lg">
+            <div class="flex flex-col space-y-4">
+                <a href="#about" class="hover:text-blue-400 transition">About</a>
+                <a href="#tokenomics" class="hover:text-blue-400 transition">Tokenomics</a>
+                <a href="#roadmap" class="hover:text-blue-400 transition">Roadmap</a>
+                <a href="#team" class="hover:text-blue-400 transition">Team</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="container mx-auto flex flex-col lg:flex-row items-center">
+            <div class="lg:w-1/2 mb-12 lg:mb-0">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                    Join the <span class="gradient-text">Nexus Revolution</span>
+                </h1>
+                <p class="text-xl text-gray-400 mb-8 max-w-lg">
+                    Nexus Token is the next-generation utility token powering decentralized applications with unmatched speed and security.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button id="buy-token" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-full transition duration-300 glow">
+                        Buy NEXUS Now <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                    <a href="#whitepaper" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-4 px-8 rounded-full transition duration-300 text-center">
+                        Read Whitepaper
+                    </a>
+                </div>
+            </div>
+            
+            <div class="lg:w-1/2 flex justify-center">
+                <div class="token-card max-w-md w-full rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold mb-6 text-center">Presale Progress</h3>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between text-sm text-gray-400 mb-2">
+                            <span>Raised: $2,450,000</span>
+                            <span>Target: $5,000,000</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-3">
+                            <div class="progress-bar h-3 rounded-full" style="width: 49%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-gray-900 p-4 rounded-lg">
+                            <p class="text-gray-400 text-sm">Token Price</p>
+                            <p class="text-xl font-bold">$0.025</p>
+                        </div>
+                        <div class="bg-gray-900 p-4 rounded-lg">
+                            <p class="text-gray-400 text-sm">Listing Price</p>
+                            <p class="text-xl font-bold">$0.05</p>
+                        </div>
+                        <div class="bg-gray-900 p-4 rounded-lg">
+                            <p class="text-gray-400 text-sm">Tokens Sold</p>
+                            <p class="text-xl font-bold">98M</p>
+                        </div>
+                        <div class="bg-gray-900 p-4 rounded-lg">
+                            <p class="text-gray-400 text-sm">Total Supply</p>
+                            <p class="text-xl font-bold">200M</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <p class="text-gray-400 mb-2">Presale ends in:</p>
+                        <div class="flex justify-center space-x-2">
+                            <div class="bg-gray-900 px-3 py-2 rounded">
+                                <span class="text-xl font-bold" id="countdown-days">07</span>
+                                <span class="text-xs block text-gray-400">Days</span>
+                            </div>
+                            <div class="bg-gray-900 px-3 py-2 rounded">
+                                <span class="text-xl font-bold" id="countdown-hours">12</span>
+                                <span class="text-xs block text-gray-400">Hours</span>
+                            </div>
+                            <div class="bg-gray-900 px-3 py-2 rounded">
+                                <span class="text-xl font-bold" id="countdown-minutes">45</span>
+                                <span class="text-xs block text-gray-400">Mins</span>
+                            </div>
+                            <div class="bg-gray-900 px-3 py-2 rounded">
+                                <span class="text-xl font-bold" id="countdown-seconds">30</span>
+                                <span class="text-xs block text-gray-400">Secs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">
+                About <span class="gradient-text">Nexus Token</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="token-card p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-blue-900 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-bolt text-blue-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Lightning Fast</h3>
+                    <p class="text-gray-400">
+                        Our proprietary blockchain technology enables thousands of transactions per second with near-instant finality.
+                    </p>
+                </div>
+                
+                <div class="token-card p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-purple-900 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-lock text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Secure by Design</h3>
+                    <p class="text-gray-400">
+                        Military-grade encryption and decentralized validation ensure your assets are always protected.
+                    </p>
+                </div>
+                
+                <div class="token-card p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-indigo-900 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-cogs text-indigo-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Multi-Chain</h3>
+                    <p class="text-gray-400">
+                        Native interoperability with Ethereum, BSC, and Polygon for seamless cross-chain transactions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tokenomics Section -->
+    <section id="tokenomics" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">
+                Token <span class="gradient-text">Economics</span>
+            </h2>
+            
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0">
+                    <div class="max-w-md mx-auto">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">Presale</span>
+                            <span class="font-bold">50%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-3 mb-6">
+                            <div class="bg-blue-600 h-3 rounded-full" style="width: 50%"></div>
+                        </div>
+                        
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">Liquidity</span>
+                            <span class="font-bold">25%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-3 mb-6">
+                            <div class="bg-purple-600 h-3 rounded-full" style="width: 25%"></div>
+                        </div>
+                        
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">Development</span>
+                            <span class="font-bold">15%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-3 mb-6">
+                            <div class="bg-indigo-600 h-3 rounded-full" style="width: 15%"></div>
+                        </div>
+                        
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">Marketing</span>
+                            <span class="font-bold">10%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-3">
+                            <div class="bg-pink-600 h-3 rounded-full" style="width: 10%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="token-card p-8 rounded-xl max-w-md mx-auto">
+                        <h3 class="text-2xl font-bold mb-6">Key Features</h3>
+                        
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>2% auto-liquidity generation</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>3% ecosystem development fund</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>5% staking rewards pool</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Anti-whale protection (max 2% wallet)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span>Smart contract audited by CertiK</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">
+                Project <span class="gradient-text">Roadmap</span>
+            </h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-8">
+                    <!-- Q1 2023 -->
+                    <div class="flex roadmap-item relative">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                                <span class="font-bold">Q1</span>
+                            </div>
+                        </div>
+                        <div class="ml-6">
+                            <h3 class="text-xl font-bold mb-2">Q1 2023 - Foundation</h3>
+                            <ul class="list-disc pl-5 text-gray-400 space-y-2">
+                                <li>Concept development and whitepaper</li>
+                                <li>Core team assembly</li>
+                                <li>Smart contract development</li>
+                                <li>Private seed round funding</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Q2 2023 -->
+                    <div class="flex roadmap-item relative">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                                <span class="font-bold">Q2</span>
+                            </div>
+                        </div>
+                        <div class="ml-6">
+                            <h3 class="text-xl font-bold mb-2">Q2 2023 - Development</h3>
+                            <ul class="list-disc pl-5 text-gray-400 space-y-2">
+                                <li>Smart contract audit completion</li>
+                                <li>Testnet deployment</li>
+                                <li>Partnership announcements</li>
+                                <li>Community building initiatives</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Q3 2023 -->
+                    <div class="flex roadmap-item relative">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                                <span class="font-bold">Q3</span>
+                            </div>
+                        </div>
+                        <div class="ml-6">
+                            <h3 class="text-xl font-bold mb-2">Q3 2023 - Presale & Launch</h3>
+                            <ul class="list-disc pl-5 text-gray-400 space-y-2">
+                                <li>Public presale event</li>
+                                <li>DEX listings (Uniswap, PancakeSwap)</li>
+                                <li>CEX listings (Gate.io, KuCoin)</li>
+                                <li>Mainnet launch</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Q4 2023 -->
+                    <div class="flex roadmap-item relative">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                                <span class="font-bold">Q4</span>
+                            </div>
+                        </div>
+                        <div class="ml-6">
+                            <h3 class="text-xl font-bold mb-2">Q4 2023 - Ecosystem Growth</h3>
+                            <ul class="list-disc pl-5 text-gray-400 space-y-2">
+                                <li>Staking platform release</li>
+                                <li>First dApp integrations</li>
+                                <li>NFT marketplace development</li>
+                                <li>Cross-chain bridge implementation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">
+                Meet the <span class="gradient-text">Team</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Team Member 1 -->
+                <div class="token-card p-6 rounded-xl text-center">
+                    <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-blue-600 to-purple-600 mb-4 overflow-hidden">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Smith" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">John Smith</h3>
+                    <p class="text-blue-400 mb-2">CEO & Founder</p>
+                    <p class="text-gray-400 text-sm">
+                        Former lead developer at Chainlink with 10+ years in blockchain technology.
+                    </p>
+                    <div class="flex justify-center space-x-3 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Team Member 2 -->
+                <div class="token-card p-6 rounded-xl text-center">
+                    <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-blue-600 to-purple-600 mb-4 overflow-hidden">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">Sarah Johnson</h3>
+                    <p class="text-blue-400 mb-2">CTO</p>
+                    <p class="text-gray-400 text-sm">
+                        Smart contract expert with previous work at Ethereum Foundation.
+                    </p>
+                    <div class="flex justify-center space-x-3 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Team Member 3 -->
+                <div class="token-card p-6 rounded-xl text-center">
+                    <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-blue-600 to-purple-600 mb-4 overflow-hidden">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Michael Chen" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">Michael Chen</h3>
+                    <p class="text-blue-400 mb-2">Head of Marketing</p>
+                    <p class="text-gray-400 text-sm">
+                        Crypto marketing specialist with experience at Binance and Coinbase.
+                    </p>
+                    <div class="flex justify-center space-x-3 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Team Member 4 -->
+                <div class="token-card p-6 rounded-xl text-center">
+                    <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-blue-600 to-purple-600 mb-4 overflow-hidden">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emma Davis" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">Emma Davis</h3>
+                    <p class="text-blue-400 mb-2">Business Development</p>
+                    <p class="text-gray-400 text-sm">
+                        Former partnerships manager at Polygon with extensive Web3 network.
+                    </p>
+                    <div class="flex justify-center space-x-3 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-medium"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-900 to-purple-900">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Join the <span class="gradient-text">Nexus Revolution</span>?</h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Don't miss your chance to be part of the next big thing in blockchain technology.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <button id="connect-wallet-2" class="bg-white hover:bg-gray-100 text-blue-900 font-bold py-4 px-8 rounded-full transition duration-300">
+                    Connect Wallet
+                </button>
+                <button id="buy-token-2" class="bg-transparent hover:bg-blue-800 text-white font-bold py-4 px-8 rounded-full border-2 border-white transition duration-300">
+                    Buy NEXUS Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                            <i class="fas fa-coins text-white text-sm"></i>
+                        </div>
+                        <span class="text-xl font-bold">Nexus<span class="gradient-text">Token</span></span>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        The next-generation utility token powering decentralized applications.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-medium"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Whitepaper</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Audit Report</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">GitHub</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="text-gray-400 hover:text-blue-400 transition">About</a></li>
+                        <li><a href="#tokenomics" class="text-gray-400 hover:text-blue-400 transition">Tokenomics</a></li>
+                        <li><a href="#roadmap" class="text-gray-400 hover:text-blue-400 transition">Roadmap</a></li>
+                        <li><a href="#team" class="text-gray-400 hover:text-blue-400 transition">Team</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Cookie Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition">Risk Disclosure</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2023 Nexus Token. All rights reserved.</p>
+                <p class="mt-2">This website is for informational purposes only and does not constitute financial advice.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Wallet Connection Modal -->
+    <div id="wallet-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+        <div class="bg-gray-900 rounded-xl p-8 max-w-md w-full mx-4 border border-gray-800">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold">Connect Wallet</h3>
+                <button id="close-wallet-modal" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-4" id="buttons-wallets">
+                <button id="metamask" class="w-full flex items-center justify-between p-4 bg-gray-800 hover:bg-gray-700 rounded-lg transition">
+                    <div class="flex items-center">
+                        <img src="https://cryptologos.cc/logos/versions/metamask-logo-purple-logo.png" alt="MetaMask" class="w-8 h-8 mr-3">
+                        <span>MetaMask</span>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                
+                <button id="trustwallet" class="w-full flex items-center justify-between p-4 bg-gray-800 hover:bg-gray-700 rounded-lg transition">
+                    <div class="flex items-center">
+                        <img src="https://cryptologos.cc/logos/trust-wallet-twt-logo.png" alt="Trust Wallet" class="w-8 h-8 mr-3">
+                        <span>Trust Wallet</span>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                
+                <button id="walletconnect" class="w-full flex items-center justify-between p-4 bg-gray-800 hover:bg-gray-700 rounded-lg transition">
+                    <div class="flex items-center">
+                        <img src="https://cryptologos.cc/logos/walletconnect-walletconnect-logo.png" alt="WalletConnect" class="w-8 h-8 mr-3">
+                        <span>WalletConnect</span>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                
+                <button id="coinbasewallet" class="w-full flex items-center justify-between p-4 bg-gray-800 hover:bg-gray-700 rounded-lg transition">
+                    <div class="flex items-center">
+                        <img src="https://cryptologos.cc/logos/coinbase-wallet-cbw-logo.png" alt="Coinbase Wallet" class="w-8 h-8 mr-3">
+                        <span>Coinbase Wallet</span>
+                    </div>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buy Token Modal -->
+    <div id="buy-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+        <div class="bg-gray-900 rounded-xl p-8 max-w-md w-full mx-4 border border-gray-800">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold">Buy NEXUS Tokens</h3>
+                <button id="close-buy-modal" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="mb-6">
+                <label class="block text-gray-400 mb-2">Amount in USD</label>
+                <div class="relative">
+                    <input id="amount-usdt" type="number" placeholder="100" min="0" max="99" class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 pr-16 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    <span class="absolute right-3 top-3 text-gray-400">USD</span>
+                </div>
+            </div>
+            
+            
+            <div class="mb-6">
+                <label class="block text-gray-400 mb-2">You will receive</label>
+                <div class="relative">
+                    <input id="amount-token" type="text"  class="w-full bg-gray-800 border border-gray-700 rounded-lg py-3 px-4 pr-16 focus:outline-none focus:ring-2 focus:ring-blue-600" readonly>
+                    <span class="absolute right-3 top-3 text-gray-400">NEXUS</span>
+                </div>
+                <p class="text-sm text-gray-500 mt-2">Price: $0.025 per NEXUS</p>
+            </div>
+            
+            <div class="mb-6">
+                <label class="flex items-center">
+                    <input type="checkbox" class="form-checkbox rounded bg-gray-800 border-gray-700 text-blue-600 focus:ring-blue-600">
+                    <span class="ml-2 text-gray-400">I agree to the <a href="#" class="text-blue-400 hover:underline">Terms of Service</a></span>
+                </label>
+            </div>
+            
+            <button id="confirm-purchase" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                Confirm Purchase
+            </button>
+        </div>
+    </div>
+
+    <script src="./src/scripts/utils.js"></script>
+    <script type="module" src="./src/scripts/app.js"></script>
+</body>
+</html>

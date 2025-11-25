@@ -1,0 +1,38 @@
+
+.profile-modal{
+
+    width: 90%;
+    height: 50dvh;
+    margin: -4rem 1dvh ;
+    background-color: #e2e8f0;
+    border-radius: 1.5rem;
+    position: fixed;
+    display: flex;
+    padding: 0;
+    flex-direction: column;
+    justify-content: space-around;  
+    align-items: center; 
+    font-weight: 900;
+    color: black;
+    box-shadow: 1px 1px 15px white;
+    z-index: 99;
+
+}
+.profile-modal-btn-close{
+    background-color: black;
+    padding: 1rem;
+    border-radius: 1rem;
+    border-style: none;
+    cursor:pointer;
+    color: white;
+}
+.profile-modal-btn-withdraw{
+    background-color: rgb(96, 190, 101);
+    padding: 1rem;
+    border-radius: 1rem;
+    border-style: none;
+    cursor:pointer;
+}
+.profile-modal-user-account{
+    text-overflow: clip;
+}
